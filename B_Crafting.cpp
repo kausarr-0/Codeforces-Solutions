@@ -27,35 +27,37 @@ bool isPrime(ll n) { if(n<=1)return false;if(n<=3)return true;if(n%2==0||n%3==0)
 bool isPowerOfTwo(ll n) { return(n>0) && (n&(n-1))==0; }
 
 void solve() {
-    ll n;cin>>n;
-    vector<ll>a(n)  ,b(n);
-    for(auto&i:a)
-    cin>>i;
-    for(auto &i:b)
-    cin>>i;
-
-    for(ll i=0;i<n;i++)
+    ll n;
+    cin >> n;
+    vector<ll> a(n), b(n);
+    for (auto &i : a)
+        cin >> i;
+    for (auto &i : b)
+        cin >> i;
+    ll lagbe = 0, idx = 0;
+    for (ll i = 0; i < n; i++)
     {
-        if(a[i]>=b[i])continue;
-        ll d=b[i]-a[i]  ;
-        a[i]+=d;
-        for(ll j=0;j<n;j++)
+        if (a[i] < b[i])
         {
-            if(j==i)
-            continue;
-            a[j]-=d;
+            int cur = lagbe;
+            lagbe = max(lagbe, b[i] - a[i]);
+            if (cur != lagbe)
+                idx = i;
         }
     }
 
-    for(ll i=0;i<n;i++)
+    for (int i = 0; i < n; i++)
     {
-        if(a[i]>=b[i])
-        continue;
-        else {
+        if (i == idx)
+            continue;
+        a[i] -= lagbe;
+        if (a[i] < b[i])
+        {
             cn;
             return;
         }
     }
+
     cy;
 }
 
